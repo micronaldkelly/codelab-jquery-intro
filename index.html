@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <title>Tic Tac Toe</title>
+
+  <style>
+  .X{
+    background-color: green;
+  }
+  .O{
+    background-color: orange;
+  }
+  #game-board {
+    text-align: center;
+  }
+  #game-board td {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+  }
+  </style>
+
+</head>
+<body>
+
+  <table id="game-board">
+    <tbody>
+      <tr>
+        <td id= "0"></td>
+        <td id= "1"></td>
+        <td id= "2"></td>
+      </tr>
+      <tr>
+        <td id= "3"></td>
+        <td id= "4"></td>
+        <td id= "5"></td>
+      </tr>
+      <tr>
+        <td id= "6"></td>
+        <td id= "7"></td>
+        <td id= "8"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button id="reset-button">Reset</button>
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script>
+  // ADD YOUR CODE FOR THE GAME LOGIC HERE
+  var mark = "X";
+  var XwinCount = 0;
+  var OwinCount = 0;
+  var wins= [7, 56, 448, 73, 146, 292, 273, 84];
+  var board = [1, 2, 4, 8, 16, 32, 64, 128, 256];
+  var idx = 0;
+  function myFunction() {
+    var temp = $(jQuery(this)).attr('id');
+    idx = parseInt(temp);
+    if(jQuery(this).text()){
+      return;
+    }
+    jQuery(this).addClass(mark).text(mark);
+    if(mark== "X"){
+      XwinCount += board[idx];
+      console.log(XwinCount);
+      getWinner(XwinCount, 1);
+      mark="O";
+    }else{
+      OwinCount += board[idx];
+      console.log(OwinCount);
+      getWinner(OwinCount, 2);
+      mark="X";
+    }
+  }
+
+  function getWinner(count, player)
+  {
+    // var i = 0 => setting initial index value
+    // i < wins.length => don't try to index into array
+    // that is smaller than the index
+    // array of size 9 => can't do array[9]
+    // start index at 0 => 8
+    // i += 1 => i = i + 1; (incrementing the index)
+    for(var i = 0; i < wins.length; i += 1)
+    {
+      // player x
+      if(wins[i] == count && player==1)
+      {
+        window.alert("Player X Runs Shit");
+        break;
+      }
+      // player o
+      else if (wins[i] == count && player==2)
+      {
+        window.alert("Player O Beat You");
+        break;
+
+      }
+    }
+  }
+
+  function reset(){
+    jQuery('td').removeClass('X').removeClass('O').text('');
+    mark = "X";
+  }
+  jQuery('#reset-button').on('click', reset);
+  jQuery('td').on('click', myFunction);
+  </script>
+</body>
+</html>
